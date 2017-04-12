@@ -7,7 +7,8 @@
 
 <body>
     <p>Left Joy-Con: <input id="left-color" class=jscolor value=949EA5></input><br />
-        Right Joy-Con: <input id="right-color" class=jscolor value=949EA5></input>
+        Right Joy-Con: <input id="right-color" class=jscolor value=949EA5></input><br />
+        Bezel: <input id="bezel-color" class=jscolor value=373435></input>
     </p>
     
     <svg xmlns="http://www.w3.org/2000/svg" xml:space="preserve" width="254.528mm" height="108.561mm" version="1.1" style="shape-rendering:geometricPrecision; text-rendering:geometricPrecision; image-rendering:optimizeQuality; fill-rule:evenodd; clip-rule:evenodd"
@@ -24,7 +25,7 @@
         .fil1 {fill:#373435} /* bezel */
         .fil9 {fill:#1D1F21} /* d-pad arrows print */
         .fil4 {fill:#2B2C2E} /* +/- buttons */
-        .fil0 {fill:#30363A} /* outer frame */
+        .bezel {fill:#30363A} /* outer frame */
         .fil8 {fill:#56616A} /* buttons */
         .joyconR {fill:#949EA5} /* joy-cons */
         .joyconL {fill:#949EA5} /* joy-cons */
@@ -51,9 +52,9 @@
      <g id="Capa_x0020_1">
       <metadata id="CorelCorpID_0Corel-Layer"/>
       <g id="_2497485212656">
-       <path class="fil0 str0" d="M25453 2317c0,-1274 -1043,-2317 -2317,-2317l0 2317 2317 0z"/>
-       <path class="fil0 str0" d="M0 2317c0,-1274 1043,-2317 2317,-2317l0 2317 -2317 0z"/>
-       <path class="fil0 str0" d="M4020 77l17732 0c0,209 154,385 355,418l0 10361 -18511 0 0 -10356c233,0 424,-190 424,-423z"/>
+       <path class="bezel str0" d="M25453 2317c0,-1274 -1043,-2317 -2317,-2317l0 2317 2317 0z"/>
+       <path class="bezel str0" d="M0 2317c0,-1274 1043,-2317 2317,-2317l0 2317 -2317 0z"/>
+       <path class="bezel str0" d="M4020 77l17732 0c0,209 154,385 355,418l0 10361 -18511 0 0 -10356c233,0 424,-190 424,-423z"/>
        <path class="fil1 str0" d="M4398 421l17055 0c124,0 225,101 225,225l0 9498c0,124 -101,225 -225,225l-1057 0 0 -96c0,-59 -48,-106 -106,-106l-648 0c-58,0 -106,47 -106,106l0 96 -9484 0 0 -243c0,-80 -84,-146 -189,-146 -104,0 -188,66 -188,146l0 243 -3360 0 0 -96c0,-59 -48,-106 -106,-106l-648 0c-59,0 -106,47 -106,106l0 96 -1057 0c-124,0 -225,-101 -225,-225l0 -9498c0,-124 101,-225 225,-225z"/>
        <rect class="fil2 str0" x="5485" y="1204" width="14732" height="8297"/>
        <path class="joyconR str0" d="M22107 77l997 0c1257,0 2286,1029 2286,2286l0 6207c0,1257 -1029,2286 -2286,2286l-997 0 0 -10779z"/>
@@ -101,19 +102,23 @@
         var update = function() {
             $('.joyconL').css('fill', '#' + $('#left-color').val());
             $('.joyconR').css('fill', '#' + $('#right-color').val());
+            $('.bezel').css('fill', '#' + $('#bezel-color').val())
         }
         
         $(window).ready(function() {
-            var match = window.location.hash.match(/^\#([0-9a-f]{6})\/([0-9a-f]{6})$/i)
+            var match = window.location.hash.match(/^\#([0-9a-f]{6})\/([0-9a-f]{6})(?:\/([0-9a-f]{6}))?$/i)
             if (match) {
                 $('#left-color').val(match[1]);
                 $('#right-color').val(match[2]);
+                if (match[3]) $('#bezel-color').val(match[3]);
                 update();
             }
             
            $('input.jscolor').change(function() {
                update();
-               window.location.hash = '#' + $('#left-color').val() + '/' + $('#right-color').val();
+               window.location.hash = '#' + $('#left-color').val() + '/'
+                   + $('#right-color').val() + '/'
+                   + $('#bezel-color').val();
            });
         });
     </script>
